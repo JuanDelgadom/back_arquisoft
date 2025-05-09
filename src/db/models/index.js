@@ -8,11 +8,11 @@ const { Mri, MriSchema } = require('./mri.model');
 
 function setupModels(sequelize) {
 
-    // 1. Inicializar primero los modelos sin dependencias
+
     Usuario.init(UsuarioSchema, Usuario.config(sequelize));
     Paciente.init(PacienteSchema, Paciente.config(sequelize));
     
-    // 2. Luego modelos que dependen de los anteriores
+
     Evento.init(EventoSchema, Evento.config(sequelize));
     Medico.init(MedicoSchema, Medico.config(sequelize));
     Examen.init(ExamenSchema, Examen.config(sequelize));
@@ -27,7 +27,7 @@ function setupModels(sequelize) {
         as: 'paciente' 
       });
     
-      // Corrige esta relación (en tu código hay inconsistencias con 'cedula' vs 'paciente_cedula')
+
       Evento.hasMany(Examen, { 
         foreignKey: 'cedula',
         as: 'examenes' 
@@ -47,13 +47,13 @@ function setupModels(sequelize) {
       });
     
       Usuario.hasOne(Medico, { 
-        foreignKey: 'usuario',  // mantiene el campo FK en la tabla Medico
-        as: 'perfilMedico'      // cambia el alias de la asociación
+        foreignKey: 'usuario',  
+        as: 'perfilMedico'     
       });
       
       Medico.belongsTo(Usuario, { 
-        foreignKey: 'usuario',  // mantiene el campo FK
-        as: 'infoUsuario'       // cambia el alias de la asociación
+        foreignKey: 'usuario',  
+        as: 'infoUsuario'       
       });
     
       Examen.hasOne(Mri, { 
